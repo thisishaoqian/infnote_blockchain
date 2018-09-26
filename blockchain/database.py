@@ -79,34 +79,9 @@ class BlocksIO(BaseIO):
     SERIALIZE_FIELD = {'payload', 'signature', 'prev_hash', 'curr_hash', 'time', 'position'}
     
 
-
 class UsersIO(BaseIO):
 
     MODEL = Users
     NE_FIELDS = {'public_key', 'private_key'}
     SERIALIZE_FIELD = {'user_name', 'public_key', 'private_key'}
     
-
-
-if __name__ == '__main__':
-
-    from utilities import Encryption
-
-    info = {
-        'user_name': '111',
-        'public_key': 'pk1'.encode('utf-8'),
-        'private_key': 'vk1'
-    }
-    # info = {
-    #     'payload': [
-    #         {'data': '1', 'signature': '1', 'public_key': '1'},
-    #         {'data': '2', 'signature': '2', 'public_key': '2'}
-    #     ],
-    #     'signature': '1',
-    #     'prev_hash': '1',
-    #     'curr_hash': '1',
-    #     'position': 1
-    # }
-    res = Users(**info).save()
-    # res = Blocks(**info).save()
-    print('ok')

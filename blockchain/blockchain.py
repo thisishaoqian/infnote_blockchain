@@ -1,4 +1,4 @@
-from database import UsersIO, BlocksIO
+from blockchain.database import UsersIO, BlocksIO
 from utilities import Serialize, KeyMethods
 import time
 import json
@@ -11,14 +11,22 @@ class Key(Serialize):
     SERIALIZE_FIELD = {'public_key', 'private_key'}
 
     def __init__(self):
-        self.public_key = None
-        self.private_key = None
+        self.__private_key = KeyMethods.gen_private_key()
+        self._public_key = KeyMethods.gen_public_key(self.__private_key)
 
-    def verify(self):
+    @property
+    def public_key(self):
+        return self._public_key
+
+    # @property
+    # def private_key(self):
+    #     return self.__private_key
+
+    def verify(self, signature, data_hash):
         """
         :return: Boolean
         """
-        pass
+        return self.public_key.verify
 
     def sign(self):
         pass
@@ -87,8 +95,6 @@ class User(Serialize):
 class BlockChain(Serialize):
 
     def __init__(self):
-        self.users_io = UsersIO()
-        self.blocks_io = BlocksIO()
 
         self.key = None  # current Key Object
         self.height = None
