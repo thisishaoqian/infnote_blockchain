@@ -12,190 +12,260 @@ import pymongo
 
 from forum.utilities.utilities import *
 from forum.blocks.block import Block
-from forum.blocks.payload import Payload
 from forum.blocks.key import Key
 from forum.blocks.storage import *
+'''
+server_sk_string = 'a31fc297be78f5eb37d3d87f3194d3' \
+                   'fd241a647b9025b59de1c61b566113d428'
+server_sk = ecdsa.SigningKey.from_string(
+    codecs.decode(server_sk_string, 'hex'),
+    curve=ecdsa.SECP256k1)
+server_vk = server_sk.get_verifying_key()
+'''
 
-server_sk_string = 'a31fc297be78f5eb37d3d87f3194d3fd241a647b9025b59de1c61b566113d428'
-server_sk = ecdsa.SigningKey.from_string(codecs.decode(server_sk_string, 'hex'), curve=ecdsa.SECP256k1)
-server_vk=server_sk.get_verifying_key()
 
 class Blockchain:
 
-
-    def __init__(self, key = Key(server_vk,server_sk)):
-
-
+    def __init__(self, key):
         self.__key = key
-        self.__storage = StorageDatabase()
+        # key_id 与 chain_id 一致
+        self.__chain_id = key.key_id
+        # one chain on storageDatabase
+        self.__chain_storage = ChainStorageDatabase(self.__chain_id)
+        self.__keys_storage = KeyStorageDatabase()
         self.__height = 0
 
-    def set_height(self, height):
-        self.__height = height
+    @property
+    def key(self):
+        """
+        get id
+        """
+        return self.__key
 
-    def get_height(self):
+    @key.setter
+    def key(self, key):
+        '''
+        set chain_id
+        :param id:
+        :return:
+        '''
+        self.__key = key
+
+    @property
+    def chain_id(self):
+        """
+        get id
+        """
+        return self.__chain_id
+
+    @chain_id.setter
+    def chain_id(self, chain_id):
+        '''
+        set chain_id
+        :param id:
+        :return:
+        '''
+        self.__chain_id = chain_id
+
+    @property
+    def chain_storage(self):
+        """
+        get id
+        """
+        return self.__chain_storage
+
+    @chain_storage.setter
+    def chain_storage(self, chain_storage):
+        '''
+        set chain_id
+        :param id:
+        :return:
+        '''
+        self.__chain_storage = chain_storage
+
+    @property
+    def key_storage(self):
+        """
+        get id
+        """
+        return self.__keys_storage
+
+    @key_storage.setter
+    def key_storage(self, keys_storage):
+        '''
+        set chain_id
+        :param id:
+        :return:
+        '''
+        self.__keys_storage = keys_storage
+
+    @property
+    def height(self):
         return self.__height
 
-    def get_storage(self):
+    @height.setter
+    def height(self, height):
+        self.__height = height
 
-        return self.__storage
+    @property
+    def storage(self):
+        return self.__chain_storage
+
+    @storage.setter
+    def storage(self, chain_storage):
+        self.__chain_storage = chain_storage
 
     def is_valid(self, block_from_db):
-        signature_db=block_from_db['signature']
-        list=[]
-        list.append(block_from_db['data'])
-        list.append(str(block_from_db['timestamp']))
-        list.append(str(block_from_db['prev_hash']))
-        list.append(str(block_from_db['height']))
-        list.append(str(block_from_db['version']))
-        data=str(''.join(list))
-        return server_vk.verify(from_base58(signature_db), codecs.decode(get_data_hash(data), 'hex'))
+        signature_db = block_from_db['signature']
+        tmp_list = []
+        tmp_list.append(block_from_db['data'].decode('utf-8'))
+        tmp_list.append(str(block_from_db['timestamp']))
+        tmp_list.append(str(block_from_db['prev_hash']))
+        tmp_list.append(str(block_from_db['height']))
+        tmp_list.append(str(block_from_db['version']))
+        data = str(''.join(tmp_list))
+        return self.key.public_key.verify(
+           from_base58(signature_db),
+           codecs.decode(get_data_hash(data), 'hex'))
+        #   return server_vk.verify(
+        #    from_base58(signature_db),
+        #   codecs.decode(get_data_hash(data), 'hex'))
+
+    def drop_messages(self, block_dict):
+        newblock = Block()
+        newblock.set_block_by_dict(block_dict)
+        newblock.data = bytes('', 'utf-8')
+        newblock.set_signature(self.key.secret_key)
+        newblock.set_hash_value()
+        self.updat_block(newblock)
+
+    # message type is byte
+    def add_messages(self, block_dict, message):
+        newblock = Block()
+        newblock.set_block_by_dict(block_dict)
+        data = block_dict['data'].decode('utf-8') + message.decode('utf-8')
+        newblock.data = bytes(data, 'utf-8')
+        newblock.set_signature(self.key.secret_key)
+        newblock.set_hash_value()
+        self.updat_block(newblock)
 
     def add_block(self, block):
         self.__height += 1
-        self.__storage.add_block(block)
+        self.__chain_storage.add_block(block)
+
+    def updat_block(self, block):
+        self.__chain_storage.update_block(block)
 
     def get_block_by_height(self, height):
-        return self.__storage.get_block_by_height(height)
+        return self.__chain_storage.get_block_by_height(height)
 
     def get_block_by_hash(self, hash):
-        return self.__storage.get_block_by_hash(hash)
+        return self.__chain_storage.get_block_by_hash(hash)
+
+    def create__block(self, version, data, prev_hash, timestamp, height):
+        block = Block()
+        block.version = version
+        block.data = data
+        block.prev_hash = prev_hash
+        block.timestamp = timestamp
+        block.height = height
+        block.set_signature(self.key.secret_key)
+        block.set_hash_value()
+        return block
+
+    def create_genesis_block(self):
+        genesis_block = Block()
+        genesis_block.version(1)
+        genesis_block.data = bytes('Talk is cheap', encoding='utf-8')
+        genesis_block.prev_hash = '0'
+        genesis_block.timestamp = 1537016400
+        genesis_block.height = 1
+        genesis_block.set_signature(self.key.secret_key)
+        genesis_block.set_hash_value()
+        return genesis_block
+
+    def print_block(self, block):
+        print('version: ', block.version, '\n')
+        print('data: \n', block.data.decode("utf-8"), '\n')
+        print('prev_hash: ', block.prev_hash, '\n')
+        print('timestamp: ', block.timestamp, '\n')
+        print('height: ', block.height, '\n')
+        print('signature: ', block.get_signature(), '\n')
+        print('hash_value: ', block.get_hash_value(), '\n')
 
 
-def create_payload(data, signature, publick_key):
-    payload = Payload()
-    payload.set_data(data)
-    # print(to_base58(sk.to_string()))
-    #user_sk_string = '2YPag2K7smFqMaU7mwmMpprHP5YuM1wWxtEv25bufuQWmjz5Zj'
-    #user_vk_string = 'YRkLJ69vmAg8619JfcLD786CCAJ7APZueiDAdgaXwAHyToLfVfemah54VSLHPr3GVNn1KwUMb6Lm4QPtu5b8zMpMeAVi'
-    #user_vk_byte = from_base58(user_vk_string)
-    #user_vk = ecdsa.VerifyingKey.from_string(user_vk_byte, curve=ecdsa.SECP256k1)
-    #user_sk_byte = from_base58(user_sk_string)
-    #user_sk = ecdsa.SigningKey.from_string(user_sk_byte, curve=ecdsa.SECP256k1)
-    payload.set_public_key(publick_key)
-    payload.set_signature(signature)
-    assert payload.is_valid()
-    return payload
-
-def create__block(version, payload, prev_hash, timestamp, height):
-    block = Block()
-    block.set_version(version)
-    block.set_payload([payload, ])
-    block.set_prev_hash(prev_hash)
-    block.set_timestamp(timestamp)
-    block.set_height(height)
-    block.set_signature()
-    block.set_hash_value()
-    return block
+def get_keys_num_from_db():
+    keys_storage = KeyStorageDatabase()
+    keys_num_db = keys_storage.get_key_num()
+    print('keys_num_db:', keys_num_db)
+    for k in range(keys_num_db+1, keys_num_db+5):
+        key = Key(k)
+        keys_storage.add_key(key)
+        key_dic = keys_storage.get_key(k)
+        print(key_dic)
 
 
-def create_genesis_payload():
-        genesis_payload = Payload()
-        genesis_payload.set_data('Talk is cheap')
-        # print(to_base58(sk.to_string()))
-        user_sk_string = '2YPag2K7smFqMaU7mwmMpprHP5YuM1wWxtEv25bufuQWmjz5Zj'
-        user_vk_string = 'YRkLJ69vmAg8619JfcLD786CCAJ7APZueiDAdgaXwAHyToLfVfemah54VSLHPr3GVNn1KwUMb6Lm4QPtu5b8zMpMeAVi'
-        user_vk_byte = from_base58(user_vk_string)
-        user_vk = ecdsa.VerifyingKey.from_string(user_vk_byte, curve=ecdsa.SECP256k1)
-        user_sk_byte = from_base58(user_sk_string)
-        user_sk = ecdsa.SigningKey.from_string(user_sk_byte, curve=ecdsa.SECP256k1)
-        genesis_payload.set_public_key(user_vk)
-        signature = get_signature(genesis_payload.get_data(), user_sk)
-        genesis_payload.set_signature(signature)
-        assert genesis_payload.is_valid()
-        return genesis_payload
+# add and drop block message
+def create_multi_chain():
+    # store all the pk and sk
+    keys_storage = KeyStorageDatabase()
+    keys_num_db = keys_storage.get_key_num()
+    print('keys_num_db:', keys_num_db)
+    for j in range(1, keys_num_db+1):
+        key_dict = keys_storage.get_key(j)
+        print('key_dict', key_dict)
+        key = Key(j)
+        key.set_key_by_dict(key_dict)
+        blockchain = Blockchain(key)
+        largest_heigth = blockchain.storage.get_largest_heigth()
+        # print('largest_heigth', largest_heigth)
+        blockchain.height = largest_heigth
+        pre_hash_value = ''
+        genesis_block = Block()
+        dic_db_genesis_block = {}
+        if (largest_heigth == 0):
+            genesis_block = blockchain.create_genesis_block()
+            blockchain.add_block(genesis_block)
+            pre_hash_value = genesis_block.get_hash_value()
+        else:
+            dic_db_genesis_block = blockchain.storage.get_block_by_height(1)
+            genesis_block.set_block_by_dict(dic_db_genesis_block)
+            pre_hash_value = genesis_block.get_hash_value()
+            blockchain.print_block(genesis_block)
+        print(blockchain.is_valid(dic_db_genesis_block))
+
+        for i in range(10):
+            data = str(blockchain.height + 1) + \
+                   '  zhaoccai czhaoaw@connnect.ust.hk'
+            block = blockchain.create__block(
+                1,
+                bytes(data, encoding='utf-8'),
+                pre_hash_value,
+                int(time.time()),
+                blockchain.height + 1)
+            blockchain.add_block(block)
+            pre_hash_value = block.get_hash_value()
+        print('get by hash')
+        block_from_db3 = blockchain.storage.get_block_by_height(3)
+        block_from_db4 = blockchain.storage.get_block_by_height(4)
+        assert(blockchain.is_valid(block_from_db3))
+        assert(blockchain.is_valid(block_from_db4))
+        # drop message from block
+        blockchain.drop_messages(block_from_db4)
+        block_from_db4 = blockchain.storage.get_block_by_height(4)
+        # add message to block
+        blockchain.add_messages(
+            block_from_db3,
+            bytes('add_message test', 'utf-8'))
+        # verified
+        block_from_db3 = blockchain.storage.get_block_by_height(3)
+        block_from_db = blockchain.storage.get_block_by_hash(
+            genesis_block.get_hash_value())
+        print('after_db', genesis_block.get_hash_value())
+        assert(blockchain.is_valid(block_from_db3))
+        assert(blockchain.is_valid(block_from_db4))
+        blockchain.storage.all_blocks()
 
 
-def create_genesis_block():
-    genesis_block = Block()
-    genesis_block.set_version(1)
-    genesis_payload = create_genesis_payload()
-    genesis_block.set_payload([genesis_payload, ])
-    genesis_block.set_prev_hash('0')
-    genesis_block.set_timestamp(1537016400)
-    genesis_block.set_height(1)
-    genesis_block.set_signature()
-    genesis_block.set_hash_value()
-    return genesis_block
-
-def print_block(block):
-    print('version: ', block.get_version(),'\n')
-    print('payload: \n')
-    list_payload= block.get_payload_string()
-    print(list_payload)
-    #it = iter(list_payload)
-    # 循环
-    '''while True:
-        try:
-            payload = next(it)
-            print('  public_key: ', payload.get_publick_key())
-            print('  signature: ', payload.get_signature())
-            print('  signature: ', payload.get_data())
-        except StopIteration:
-            break
-    '''
-    #for i in playload_list:
-    #    print('  public_key: ',i.get_publick_key())
-    #    print('  signature: ', i.get_signature())
-    #    print('  signature: ', i.get_data())
-    print('prev_hash: ',block.get_prev_hash(), '\n')
-    print('timestamp: ',block.get_timestamp(), '\n')
-    print('height: ',block.get_height(), '\n')
-    print('signature: ',block.get_signature(), '\n')
-    print('hash_value: ',block.get_hash_value(), '\n')
-
-
-
-
-
-blockchain = Blockchain()
-largest_heigth = blockchain.get_storage().get_largest_heigth()
-blockchain.set_height(largest_heigth)
-genesis_block = Block()
-if (largest_heigth == 0) :
-    genesis_block = create_genesis_block()
-    blockchain.add_block(genesis_block)
-else:
-    genesis_block = blockchain.get_storage().get_block_by_height(1)
-
-#print_block(genesis_block)
-pre_hash_value = genesis_block.get_hash_value()
-print('first db ',pre_hash_value)
-for i in range(10):
-    key= Key()
-    key.set_key_pairs_by_generate()
-    data=str(blockchain.get_height()+1)+'  zhaoccai czhaoaw@connnect.ust.hk'
-    #tmp_data = ['username', 'zc', 'email', 'czhaoaw@connect.ust.hk', ]
-    #data = ''.join(tmp_data)
-    #data = json.dumps(tmp_data, sort_keys=True)
-    payload = create_payload(data,get_signature(data,key.get_secret_key()), key.get_public_key())
-    block = create__block(1,payload,pre_hash_value,int(time.time()),blockchain.get_height()+1 )
-    blockchain.add_block(block)
-    pre_hash_value = block.get_hash_value()
-
-blockchain.get_storage().all_blocks()
-print('get by hash')
-block_from_db1 =blockchain.get_storage().get_block_by_height(1)
-block_from_db2 =blockchain.get_storage().get_block_by_height(2)
-block_from_db = blockchain.get_storage().get_block_by_hash(genesis_block.get_hash_value())
-print('after_db', genesis_block.get_hash_value())
-print(blockchain.is_valid(block_from_db))
-print(blockchain.is_valid(block_from_db2))
-
-#print_block(block)
-
-
-#blocks.insert_one(genesis_block.dict())
-#blocks.insert_one(block.dict())
-#print(mydb.collection_names())
-#for x in blocks.find():
-#    print(x)
-#blockchain = Blockchain(genesis_block)
-
-
-
-
-
-
-
-
+# get_keys_num_from_db()
+create_multi_chain()

@@ -4,9 +4,10 @@
 
 from forum.utilities.utilities import *
 
+
 class Payload:
 
-    def __init__(self, data = [], signature = '',  public_key = ''):
+    def __init__(self, data=[], signature='',  public_key=''):
         self.__data = data
         self.__signature = signature
         self.__public_key = public_key
@@ -33,4 +34,6 @@ class Payload:
         return to_base58(self.__public_key.to_string())
 
     def is_valid(self):
-        return self.__public_key.verify(from_base58(self.__signature), codecs.decode(get_data_hash(self.__data), 'hex'))
+        return self.__public_key.verify(
+            from_base58(self.__signature),
+            codecs.decode(get_data_hash(self.__data), 'hex'))
