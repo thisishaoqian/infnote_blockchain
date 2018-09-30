@@ -40,16 +40,14 @@ class ChainStorageDatabase(implements(Storage)):
 
     def get_largest_heigth(self):
         largest_heigth = self.blocks.find().count()
-        print(largest_heigth)
+        print('largest_heigth', largest_heigth)
         return largest_heigth
 
     def add_block(self, block):
-        self.blocks.insert_one(block.dict())
+        print('addd', self.blocks.insert_one(block.dict()))
 
     def update_block(self, block):
-        dict = block.dict()
-        self.blocks.update({'height': dict['height']},
-                           {'$set': dict})
+        self.blocks.insert_one(block.dict())
 
     def all_blocks(self):
         list_bloks = []
@@ -100,17 +98,25 @@ class KeyStorageDatabase:
         # print(self.mydb.collection_names())
 
     def get_key_num(self):
-        key_nums = self.keys.find().count()
-        print(key_nums)
-        return key_nums
+        key_num = self.keys.find().count()
+        # print('key_num', key_num)
+        return key_num
 
     def get_key(self, chain_id):
         # key_id is chain id
         query = {'key_id': chain_id}
         key = self.keys.find_one(query)
-        print(key)
+        if key is None:
+            raise ('not find key')
         return key
 
     def add_key(self, key):
         print(key.dict())
-        self.keys.insert_one(key.dict())
+        print('insert ', self.keys.insert_one(key.dict()))
+
+    def all_keys(self):
+        list_keys = []
+        for x in self.keys.find():
+            print(x)
+            list_keys.append(x)
+        return list_keys
