@@ -2,7 +2,7 @@
 // const ECDSA = require('ecdsa-secp256r1')
 // const ECDSA = require('ecdsa-secp256r1/browser')
 // import {crypto} from 'bitcoinjs-lib'
-import {getDataHash} from './utilities/utilities'
+import {toBase58, getDataHash} from './utilities/utilities'
 // import { getHashes } from 'crypto'
 
 class Block {
@@ -55,6 +55,7 @@ class Block {
     }
 
     sign(signature) {
+        // this signature has been base58 encoded
         this.signature = signature
     }
 }
