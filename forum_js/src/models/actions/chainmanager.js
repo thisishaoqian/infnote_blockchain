@@ -19,7 +19,7 @@ class ChainManager {
 
     recoverFromLS() {
         let storage = Storage.allChainsInStorage()
-        for(let i=0; i<this.chainNum; i++){
+        for(let i=0; i<this.chainsNum; i++){
             let id = this.ids[i]
             this.keys[id] = storage[id].shift()
             this.chains[id] = new Blockchain(this.keys[id])
@@ -55,14 +55,13 @@ class ChainManager {
     createNewChain() {
 
         let id = uuid()
-        // let newKey = new Key(id)
-        // this.chains[id] = new Blockchain(newKey)
-        this.key[id] = new Key(id)
-        this.chains[id] = new Blockchain(this.key[id])
+
+        this.keys[id] = new Key(id)
+        this.chains[id] = new Blockchain(this.keys[id])
         this.ids.push(id)
 
         this.chainsNum += 1
-        return this.chain[id]
+        return this.chains[id]
     }
 
     getKeyById(id) {

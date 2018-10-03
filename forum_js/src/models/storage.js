@@ -14,7 +14,8 @@ class Storage {
         // Which way is more efficient? read all Storage once: localStorage.valueOf() OR one by one
         for(let i=localStorage.length-1; i>=0; i--) {
             let key = localStorage.key(i)
-            chains[key] = JSON.parse(localStorage.getItem[key])
+            let chainContent = JSON.parse(localStorage.getItem(key))
+            chains[key] = chainContent
         }
         return chains
     }
@@ -38,7 +39,7 @@ class Storage {
         else{
             this.blocks = new Array()
         }
-        this.blocks.unshift(this.key)
+        this.blocks.unshift(this.key) // blocks: [key, block, block, ...]
     }
 
     addBlock(blockObj) {

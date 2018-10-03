@@ -11,7 +11,7 @@ class Blockchain {
 
         this.id = keyObj.id
         this.key = keyObj
-        this.storage = new Storage(this.id)
+        this.storage = new Storage(this.id, keyObj)
         this.height = 0
         this.lastBlockHash = null
     }
@@ -58,7 +58,7 @@ class Blockchain {
     }
 
     resetChainHeight() {
-        this.height = this.storage.blocks.height
+        this.height = this.storage.blocks.length - 1
     }
 
     resetChainLastHash() {

@@ -23,7 +23,7 @@ class Block {
         this.height = height
         this.timestamp = new Date().getTime().toString() // 13 bits while it's 16 bits on python currently
         // this.version = version
-        this.singature = null
+        this.signature = null
         this.hash = getDataHash(this.getBlockForHashing())
     }
 
