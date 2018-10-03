@@ -21,7 +21,7 @@ class ChainManager {
         let storage = Storage.allChainsInStorage()
         for(let i=0; i<this.chainsNum; i++){
             let id = this.ids[i]
-            this.keys[id] = storage[id].shift()
+            this.keys[id] = Key.deserialize(storage[id].shift())
             this.chains[id] = new Blockchain(this.keys[id])
             this.chains[id].resetChainHeight()
             this.chains[id].resetChainLastHash()

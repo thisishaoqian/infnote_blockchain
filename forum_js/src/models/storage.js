@@ -30,7 +30,7 @@ class Storage {
 
     constructor(id, key){
         this.id = id
-        this.key = key
+        this.key = key.serialize() // key in Storage is serialized
         let dataInStorage = localStorage.getItem(id)
         if(dataInStorage) {
             let value = JSON.parse(dataInStorage)

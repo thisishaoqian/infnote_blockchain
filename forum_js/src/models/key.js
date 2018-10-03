@@ -6,9 +6,9 @@ import {toBase58, fromBase58, getDataHash} from './utilities/utilities'
 
 class Key {
 
-    static getMenbers() {
-        return ['secret_key', 'public_key', 'id']
-    }
+    // static getMenbers() {
+    //     return ['secret_key', 'public_key', 'id']
+    // }
 
     constructor(id, privateKey=null, publicKey=null) {
         if(privateKey&&publicKey){
@@ -25,7 +25,7 @@ class Key {
         this.id = id
     }
 
-    serializie() {
+    serialize() {
         let keyInJson = {}
         keyInJson['privateKey'] = toBase58(this.privateKey.toString('pkcs8'))
         keyInJson['publicKey'] = toBase58(this.publicKey.toString('spki'))
