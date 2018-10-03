@@ -49,14 +49,17 @@ class ChainManager {
     }
 
     addBlockToChain(chainId, data) {
-        this.chains[chainId].addBlockToChain(data)
+        this.chains[chainId].generateBlock(data)
     }
 
     createNewChain() {
 
         let id = uuid()
+        // let newKey = new Key(id)
+        // this.chains[id] = new Blockchain(newKey)
         this.key[id] = new Key(id)
         this.chains[id] = new Blockchain(this.key[id])
+        this.ids.push(id)
 
         this.chainsNum += 1
         return this.chain[id]

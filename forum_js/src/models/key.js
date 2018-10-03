@@ -1,7 +1,7 @@
 
 // import ECDSA from 'ecdsa-secp256r1'
 import ECKey from 'ec-key'
-import {toBase58, fromBase58, getDataHash} from 'utilities/utilities'
+import {toBase58, fromBase58, getDataHash} from './utilities/utilities'
 
 
 class Key {
@@ -11,7 +11,7 @@ class Key {
     }
 
     constructor(id, privateKey=null, publicKey=null) {
-        if(!(privateKey&&publicKey)){
+        if(privateKey&&publicKey){
             // maybe types checking is needed here
             this.privateKey = privateKey
             this.publicKey = publicKey

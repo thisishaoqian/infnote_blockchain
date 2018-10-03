@@ -1,5 +1,5 @@
 import bs58 from 'bs58'
-import bs58check from 'bs58check'
+// import bs58check from 'bs58check'
 import bigi from 'bigi'
 import {crypto} from 'bitcoinjs-lib'
 

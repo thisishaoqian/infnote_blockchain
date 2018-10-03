@@ -66,6 +66,10 @@ class Storage {
         return null
     }
 
+    static clearStorage(){
+        localStorage.clear()
+    }
+
     save(key, value) {
         // localStorage.setItem(key, value)
         // this 
