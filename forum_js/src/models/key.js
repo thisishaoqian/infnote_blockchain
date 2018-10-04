@@ -39,8 +39,6 @@ class Key {
         if(typeof keyInJson === 'string')
             keyInDict = JSON.parse(keyInJson)
 
-        // let privateKey = ECDSA.fromJWK(JSON.parse(fromBase58(keyInDict['privateKey'])))
-        // let publicKey = ECDSA.fromJWK(JSON.parse(fromBase58(keyInDict['publicKey'])))
         let privateKey = new ECKey(fromBase58(keyInDict['privateKey']), 'pkcs8')
         let publicKey = new ECKey(fromBase58(keyInDict['publicKey']), 'spki')
         
@@ -48,10 +46,8 @@ class Key {
     }
 
     sign(message) {
-        // let msgHash = getDataHash(JSON.stringify(message))
-        // return toBase58(this.privateKey.sign(msgHash))
         if(typeof message !== 'string'){
-            message = JSON.stringify(message)
+            message = getDataHash(message)
         }
         let signature = this.privateKey.createSign('SHA256').update(message).sign('base64') //cannot find base58 in its library
         return toBase58(signature)
@@ -61,7 +57,7 @@ class Key {
         // let msgHash = getDataHash(JSON.stringify(message))
         // return this.publicKey.verify(msgHash, fromBase58(signature))
         if(typeof message !== 'string'){
-            message = JSON.stringify(message)
+            message = getDataHash(message)
         }
         signature = fromBase58(signature)
         return this.publicKey.createVerify('SHA256').update(message).verify(signature, 'base64')
