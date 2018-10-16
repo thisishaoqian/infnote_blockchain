@@ -5,6 +5,7 @@
   "dependencies": {
     "base58": "^1.0.1",
     "bigi": "^1.4.2",
+    "binstring": "^0.2.1",
     "bitcoinjs-lib": "^4.0.2",
     "bs58": "^4.0.1",
     "bs58check": "^2.1.2",

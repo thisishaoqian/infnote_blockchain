@@ -1,0 +1,76 @@
+
+// import {StoragePrefixBlock as prefixB, StoragePrefixKey as prefixK} from './settings'
+
+const prefixB = 'b'
+const prefixK = 'k'
+
+class Storage {
+    constructor() {
+        this.chainBlockMap = {}
+        for (let i = 0; i < localStorage.length; i++) {
+            let indexes = localStorage.key(i).split('+')
+            if (indexes[0] !== prefixB) {
+                continue
+            }
+            if (!(this.chainBlockMap.hasOwnProperty(indexes[1]))) {
+                this.chainBlockMap[indexes[1]] = []
+            }
+            this.chainBlockMap[indexes[1]].push(indexes[2])
+        }
+    }
+
+    allChains() {
+        let chains = []
+        for (let publickey of Object.keys(this.chainBlockMap)) {
+            let index = prefixK + '+' + publickey
+            chains.push(JSON.parse(localStorage.getItem(index)))
+        }
+        return chains
+    }
+
+    saveChain(chain) {
+        let index = prefixK + '+' + chain['public_key']
+        localStorage.setItem(index, JSON.stringify(chain))
+    }
+
+    saveBlock(block) {
+        let index = prefixB + '+' + block['chain_id'] + '+' + block['height'].toString()
+        localStorage.setItem(index, JSON.stringify(block))
+    }
+
+    getChain(publicKey) {
+        let index = prefixK + '+' + publicKey
+        return JSON.parse(localStorage.getItem(index))
+    }
+
+    getBlock(chainId, height = null, blockHash = null) {
+        if (height != null) {
+            let index = prefixB + '+' + chainId + '+' + height.toString()
+            return JSON.parse(localStorage.getItem(index))
+        } else if (blockHash != null) {
+            // this method may be have very low efficiency
+            for (let height of this.chainBlockMap[chainId]) {
+                let index = prefixB + '+' + chainId + '+' + height.toString()
+                let block = JSON.parse(localStorage.getItem(index))
+                if (block.hash === blockHash) {
+                    return block
+                }
+            }
+        } else {
+            throw 'Height and BlockHash CANNOT be both empty when query a block!'
+        }
+    }
+
+    getHeight(chainId) {
+        if (this.chainBlockMap[chainId] == null) {
+            return 0
+        }
+        return this.chainBlockMap[chainId].length
+    }
+
+    // migrate() {
+
+    // }
+}
+
+export default Storage
