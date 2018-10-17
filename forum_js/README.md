@@ -2,6 +2,24 @@
 
 #### What have been done this week:
 
+*2018 / 10 / 18*
+
+***
+
+* Reorganize infnote blockchain part in Javascript
+  * JS codes basically are trasfered from latest python codes, some functions working for full-node could be removed then.
+  * For dependencies, only `bs58`, `ec-key` are actually used,  the rest of related packages are for trying.
+  * Some details can be discussed to improve performance.
+* P2P part has not finished yet
+  * It seems a bit complicated to implement P2P on browser intuitively, because browser is not easy to open a port for a peer. 
+  * `ws` may be not working for browser, native `websocket`, `isomorphic-ws` are recommended, but need testing.
+
+
+
+*2018 / 10 / 11*
+
+***
+
 ##### Finish the first version of Infnote Blockchain part in JavaScript:
 
 * Copied most functions from python platform to javascript
@@ -14,7 +32,7 @@
 
   <https://www.npmjs.com/package/uuid>
 
-#### Problems need to be discussed:
+#####Problems need to be discussed:
 
 * Coherence among three platforms
 

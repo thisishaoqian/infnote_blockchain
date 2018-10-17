@@ -1,8 +1,7 @@
-
 // import {StoragePrefixBlock as prefixB, StoragePrefixKey as prefixK} from './settings'
 
-const prefixB = 'b'
-const prefixK = 'k'
+const prefixB = 'b'  // prefix of block index in localstorage
+const prefixK = 'k'  // prefix of chain index in localstorage
 
 class Storage {
     constructor() {
@@ -62,14 +61,10 @@ class Storage {
     }
 
     getHeight(chainId) {
-        if (this.chainBlockMap[chainId] == null) {
-            return 0
-        }
-        return this.chainBlockMap[chainId].length
+        return this.chainBlockMap[chainId] == null ? 0 : this.chainBlockMap[chainId].length
     }
 
     // migrate() {
-
     // }
 }
 

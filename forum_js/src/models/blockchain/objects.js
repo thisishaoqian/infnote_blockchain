@@ -108,7 +108,7 @@ class Blockchain {
         return null
     }
 
-    // browser cannot create blocks or chains, this part is not needed
+    // browser cannot create blocks or chains, this function is not needed
     static create(blockInfo) {
         /*
         blockInfo should contains genisis block info
@@ -128,11 +128,7 @@ class Blockchain {
         this.storage = new Storage()
 
         let genesis = this.getBlock(0)
-        if (this.genesis != null) {
-            this.info = JSON.parse(genesis.payload)
-        } else {
-            this.info = null
-        }
+        this.info = this.genesis != null ? JSON.parse(genesis.payload) : null
     }
 
     get id() {
@@ -150,11 +146,7 @@ class Blockchain {
     getBlock(height = null, blockHash = null) {
         // height: int; blockHash: String
         let info = this.storage.getBlock(this.id, height, blockHash)
-        if (info != null) {
-            return new Block(info)
-        } else {
-            return null
-        }
+        return info != null ? new Block(info) : null
     }
 
     createBlock(payload) {
