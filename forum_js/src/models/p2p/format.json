@@ -1,0 +1,66 @@
+{
+    "message": {
+        "identifier": "string: 10 random ascii or digit",
+        "type": "string enum: question, answer, error ",
+        "content": "json object"
+    },
+    "sentence": {
+        "info": {
+            "type": "string: info",
+            "version": "string: 0.1",
+            "peers": "int: counter of connectable peers",
+            "chains": "dict<string: int>: chain ID (public key) with chain height",
+            "platform": "string: OS name or language name with version number (eg. 'python 3.6', 'IOS 10.0')",
+            "full_node": "boolean: true if full node"
+        },
+        "error": {
+            "type": "string: error",
+            "code": "error code TODO",
+            "desc": "string: description of the error"
+        },
+        "wantpeers": {
+            "type": "want_peers",
+            "count": "int: count of peers"
+        },
+        "peers": {
+            "type": "string: peers",
+            "peers": "array<Peers>: requested peers"
+        },
+        "wantblocks": {
+            "type": "string: want_blocks",
+            "chain_id": "string",
+            "from": "int: start index of block",
+            "to": "int: end index (included) of block"
+        },
+        "blocks": {
+            "type": "string: want_blocks",
+            "blocks": "array<Block>: requested blocks"
+        },
+        "newblock": {
+            "type": "string: new_block",
+            "chain_id": "string",
+            "height": "int: newest height"
+        },
+        "badchain": {
+            "type": "stirng: bad_chain",
+            "chain_id": "string",
+            "evidence": "array<Block>: two conflict blocks"
+        }
+    },
+    "types": {
+        "peer": {
+            "address": "string: IP or domain",
+            "port": "int"
+        },
+        "block": {
+            "chain_id": "string",
+            "height": "int",
+            "hash": "string",
+            "prev_hash": "string",
+            "signature": "string",
+            "time": "int: UNIX timestamp",
+            "payload": "string"
+        }
+    }
+    
+}

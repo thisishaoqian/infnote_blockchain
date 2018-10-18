@@ -8,7 +8,7 @@
 
 * Reorganize infnote blockchain part in Javascript
   * JS codes basically are trasfered from latest python codes, some functions working for full-node could be removed then.
-  * For dependencies, only `bs58`, `ec-key` are actually used,  the rest of related packages are for trying.
+  * For dependencies, only `bs58`, `ec-key`, `bitcoinjs-lib` are actually used,  the rest of related packages are for trying.
   * Some details can be discussed to improve performance.
 * P2P part has not finished yet
   * It seems a bit complicated to implement P2P on browser intuitively, because browser is not easy to open a port for a peer. 
