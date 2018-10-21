@@ -5,7 +5,7 @@ const prefixK = 'k'  // prefix of chain index in localstorage
 
 class Storage {
     constructor() {
-        this.chainBlockMap = {}
+        this.chainBlockMap = {}     // {chianid: listOfHeight}
         for (let i = 0; i < localStorage.length; i++) {
             let indexes = localStorage.key(i).split('+')
             if (indexes[0] !== prefixB) {
@@ -58,6 +58,21 @@ class Storage {
         } else {
             throw 'Height and BlockHash CANNOT be both empty when query a block!'
         }
+    }
+
+    getBlocks(chainId, start, end){
+        if (start > end || this.chainBlockMap[chainId].indexOf(start) === -1) {
+            return null
+        }
+        if (end > this.chainBlockMap[chainId].length) {
+            end = this.chainBlockMap[chainId].length
+        }
+        let blockInfos = []
+        for (let i=start; i<end; i++){
+            let index = prefixB + '+' + chainId + '+' + i.toString()
+            blockInfos.push(JSON.parse(localStorage.getItem(index)))
+        }
+        return blockInfos
     }
 
     getHeight(chainId) {

@@ -13,8 +13,8 @@ class Block {
         this.prevHash = ''
         this.time = new Date()
         this.signature = ''
-        this.chainId = '',
-        this.height = 0,
+        this.chainId = ''
+        this.height = 0
         this.payload = ''
 
         if (data != null) {
@@ -33,9 +33,7 @@ class Block {
     }
 
     get utctime() {
-        /*
-        return utctime: string
-        */
+        // return utctime: string
         let utcTimeStr = this.time.getTime().toString()
         return utcTimeStr.slice(0, 10) // ignore millisecond
     }
@@ -97,7 +95,21 @@ class Blockchain {
         return chains
     }
 
+    static remoteChain(publicKey) {
+        let chain = Blockchain.load(publicKey)
+        if (chain != null) {
+            let remote = new Blockchain(new Key(publicKey))
+            remote.save()
+            return remote
+        }
+        return chain
+    }
+
     static load(chainId) {
+        /*
+        Load a exist chain from database
+        :param chain_id: chain id = public key
+         */
         let info = (new Storage()).getChain(chainId)
         if (info != null) {
             if (info['private_key'] != null && info['private_key'].length > 0) { //undefined == null -> true, undefined == null -> false
@@ -116,7 +128,7 @@ class Blockchain {
         name, version, author, website, email, desc
         */
         let chain = new Blockchain(new Key())
-        let block = chain.createBlock(JSON.stringify(blockInfo, Object.keys(blockInfo)).sort())
+        let block = chain.createBlock(JSON.stringify(blockInfo, Object.keys(blockInfo).sort()))
         chain.save()
         chain.saveBlock(block)
 
@@ -149,10 +161,24 @@ class Blockchain {
         return info != null ? new Block(info) : null
     }
 
+    getBlocks(start, end) {
+        let infos = this.storage.getBlocks(this.id, start, end)
+        if (infos == null){
+            return null
+        }
+        
+        let blocks = []
+        for (let info of infos) {
+            blocks.push(new Block(info))
+        }
+        return blocks
+    }
+
     createBlock(payload) {
 
         if (typeof payload !== 'string') {
-            throw 'Payload should be in string type'
+            // throw 'Payload should be in string type'
+            payload = JSON.stringify(payload, Object.keys(payload).sort())
         }
 
         let block = new Block()
@@ -168,10 +194,11 @@ class Blockchain {
 
     saveBlock(block) {
         if (block.isValid && this.getBlock(block.height) == null) {
+            // this.height will not call get method here
             if (this.storage.getHeight(this.id) === 0) {
                 this.storage.saveBlock(block.dict)
                 return true
-            } else if (block.height > 0) {
+            } else if (this.storage.getHeight(this.id) > 0) {
                 let prevBlock = this.getBlock(block.height - 1)
                 if (prevBlock.blockHash === block.prevHash) {
                     this.storage.saveBlock(block.dict)
