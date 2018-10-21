@@ -3,6 +3,7 @@ class Message {
 
     // how to make Type be constant...
     static Type = {
+        BROADCAST: 'broadcast',
         QUESTION: 'question',
         ANSWER: 'answer',
         ERROR: 'error',
@@ -27,11 +28,7 @@ class Message {
 
         this.content = content
         this.type = type
-        if (identifier != null) {
-            this.identifier = identifier
-        } else {
-            this.identifier = identifierGenerator()
-        }
+        this.identifier = identifier != null ? identifier : identifierGenerator()
     }
 
     static load(jsonString) {

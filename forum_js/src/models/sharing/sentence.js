@@ -8,6 +8,7 @@ import {
     Message
 } from '../networking'
 
+
 class Sentence {
 
     static Type = {
@@ -26,9 +27,7 @@ class Sentence {
         this.type = type
     }
 
-    static load() {
-
-    }
+    static load() {}
 
     get dict() {
         return {
@@ -36,21 +35,31 @@ class Sentence {
         }
     }
 
-    get question() {
-        return new Message({
-            'type': this.type
-        })
+    questionWrapper() {
+        return new Message(this.dict)
     }
 
-    to(question) {
-        // Message Object
-        return new Message({
-            'type': this.type
-        },
-        this.type === Sentence.Type.ERROR ? Sentence.type.ERROR : Sentence.Type.ANSWER,
-        question.message.identifier
+    anwserWrapper(question) {
+        // return Message Object
+        return new Message(this.dict,
+            this.type === Sentence.Type.ERROR ? Sentence.type.ERROR : Message.Type.ANSWER,
+            question.message.identifier
         )
     }
+
+    // wrapper(sourceQuestion=null) {
+    //     // wrap sentence into Message Object
+    //     // sourceQuestion: Sentence Subclass object
+
+    //     if (sourceQuestion == null){
+    //         return new Message(this.dict)
+    //     } else {
+    //         new Message(this.dict,
+    //             this.type === Sentence.Type.ERROR ? Sentence.type.ERROR : Message.Type.ANSWER,
+    //             sourceQuestion.dict
+    //         )
+    //     }
+    // }
 
     static flatDict(value, initial = '', indent = 0) {
         if (typeof value !== 'object') {
@@ -88,16 +97,12 @@ class Info extends Sentence {
         this.platform = platform
         this.isFullNode = isFullNode
 
-        function getBrowserInfo() {
-            let info = {
-                'system': navigator.platform,
-                'user_agent': navigator.userAgent,
-                'connection_type': navigator.connection.effectiveType
-            }
-            return info
+        // param platform will be overrided here
+        this.platform = {
+            'system': navigator.platform,
+            'user_agent': navigator.userAgent,
+            'connection_type': navigator.connection.effectiveType
         }
-
-        this.platform = getBrowserInfo()
         let allChains = Blockchain.allChains()
         for (let chain of allChains) {
             this.chains[chain.id] = chain.height
@@ -173,10 +178,10 @@ class WantPeers extends Sentence {
 
     static load(d) {
         let wantPeers = new WantPeers()
-        try{
+        try {
             wantPeers.count = d['count']
             return wantPeers
-        } catch(e){
+        } catch (e) {
             console.log(e)
             return null
         }
@@ -192,19 +197,19 @@ class WantPeers extends Sentence {
 
 class Peers extends Sentence {
 
-    constructor(peerList=[]) {
+    constructor(peerList = []) {
         super(Sentence.Type.PEERS)
-        this.peers = peerList       // list of Peer objects
+        this.peers = peerList // list of Peer objects
     }
 
     static load(d) {
         let peers = new Peers()
-        try{
+        try {
             for (let peer of d['peers']) {
                 peers.peers.push(new Peer(peer['address'], peer['port']))
             }
             return peers
-        } catch(e) {
+        } catch (e) {
             console.log(e)
             return null
         }
@@ -224,7 +229,7 @@ class Peers extends Sentence {
 
 class WantBlocks extends Sentence {
 
-    constructor(chainId='', fromHeight=0, toHeight=0) {
+    constructor(chainId = '', fromHeight = 0, toHeight = 0) {
         super(Sentence.Type.WANT_BLOCKS)
         this.chainId = chainId
         this.fromHeight = fromHeight
@@ -233,13 +238,13 @@ class WantBlocks extends Sentence {
 
     static load(d) {
         let wantBlocks = new WantBlocks()
-        try{
+        try {
             wantBlocks.chainId = d['chainId']
             wantBlocks.fromHeight = d['fromHeight']
             wantBlocks.toHeight = d['toHeight']
 
             return wantBlocks
-        } catch(e) {
+        } catch (e) {
             console.log(e)
             return null
         }
@@ -257,19 +262,19 @@ class WantBlocks extends Sentence {
 
 class Blocks extends Sentence {
 
-    constructor(blockList=[]) {
+    constructor(blockList = []) {
         super(Sentence.Type.BLOCKS)
         this.blocks = blockList
     }
 
     static load(d) {
         let blocks = new Blocks()
-        try{
+        try {
             for (let data of d['blocks']) {
                 blocks.blocks.push(new Block(data))
             }
             return blocks
-        } catch(e) {
+        } catch (e) {
             console.log(e)
             return null
         }
@@ -289,7 +294,7 @@ class Blocks extends Sentence {
 
 class NewBlock extends Sentence {
 
-    constructor(chainId='', height=0) {
+    constructor(chainId = '', height = 0) {
         super(Sentence.Type.NEW_BLOCK)
         this.chainId = chainId
         this.height = height
@@ -297,11 +302,11 @@ class NewBlock extends Sentence {
 
     static load(d) {
         let newBlock = new NewBlock()
-        try{
+        try {
             newBlock.chianId = d['chain_id']
             newBlock.height = d['height']
             return newBlock
-        } catch(e) {
+        } catch (e) {
             console.log(e)
             return null
         }
@@ -314,6 +319,23 @@ class NewBlock extends Sentence {
             'height': this.height
         }
     }
+
+    get broadcast() {
+        if (this.message == null) {
+            this.message = new Message(this.dict, Message.Type.BROADCAST)
+        }
+        return new Message(this.dict, Message.Type.BROADCAST, this.message.identifer)
+        // return this.message
+    }
 }
 
-export {Info, Error, WantPeers, Peers, WantBlocks, Blocks, NewBlock}
+export {
+    Sentence,
+    Info,
+    Error,
+    WantPeers,
+    Peers,
+    WantBlocks,
+    Blocks,
+    NewBlock
+}

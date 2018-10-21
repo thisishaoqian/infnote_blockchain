@@ -1,22 +1,28 @@
 import {
     default as Dispatcher
 } from './dispatcher'
+import {
+    default as Message
+} from './message'
 
 const prefixP = 'p'
 
 
 class Peer {
 
-    constructor(address = '', port = 80, rank = 100, socket = null, dispatcher = null) {
+    constructor(address = '', port = 80, rank = 100, socket = null, dispatcher = new Dispatcher()) {
         this.address = address
         this.port = port
         this.rank = rank
         this.socket = socket
         this.dispatcher = dispatcher
+        this.retryCount = 0
     }
 
     get isConnected() {
-        return this.socket != null
+        return this.socket != null &&
+            this.socket.readyState !== this.socket.CLOSED &&
+            this.socket.readyState !== this.socket.CLOSING
     }
 
     get dict() {
@@ -26,14 +32,19 @@ class Peer {
         }
     }
 
-    createDispatcher() {
-        let url = 'ws://' + this.address + ':' + this.port
-        this.dispatcher = new Dispatcher(new WebSocket(url))
-        return true
+    send(message, callback) {
+        if (callback != null) {
+            this.dispatcher.register(message.identifier, callback)
+        }
+        this.socket.send(message.dump())
     }
 
+    // recv() {
+    //// -> onmessage() 
+    // }
+
     save() {
-        (new PeerManager()).addPeer(this)
+        (new PeerManager()).addOrUpdatePeer(this)
     }
 }
 

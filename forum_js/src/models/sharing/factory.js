@@ -31,30 +31,29 @@ class SentenceFactory {
             result = Info.load(content)
             break
         case 'error':
-            result = Error.lead(content)
+            result = Error.load(content)
             break
         case 'want_peers':
-            result = WantPeers.lead(content)
+            result = WantPeers.load(content)
             break
         case 'peers':
-            result = Peers.lead(content)
+            result = Peers.load(content)
             break
         case 'want_blocks':
-            result = WantBlocks.lead(content)
+            result = WantBlocks.load(content)
             break
         case 'blocks':
-            result = Blocks.lead(content)
+            result = Blocks.load(content)
             break
         case 'new_block':
-            result = NewBlock.lead(content)
+            result = NewBlock.load(content)
             break
         }
 
         if (result != null) {
             result.message = message
-            return result
         }
-        return null
+        return result
     }
 
     static wantBlocks(chainId, start, end) {
