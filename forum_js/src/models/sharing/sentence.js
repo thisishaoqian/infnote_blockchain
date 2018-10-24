@@ -23,7 +23,7 @@ class Sentence {
     }
 
     constructor(message = null, type = Sentence.Type.EMPTY) {
-        this.message = null
+        this.message = message
         this.type = type
     }
 
@@ -266,10 +266,11 @@ class WantBlocks extends Sentence {
 
 class Blocks extends Sentence {
 
-    constructor(blockList = []) {
+    constructor(blockList = [], end =true) {
         super()
         this.type = Sentence.Type.BLOCKS
         this.blocks = blockList
+        this.end = end
     }
 
     static load(d) {
@@ -292,7 +293,8 @@ class Blocks extends Sentence {
         }
         return {
             'type': this.type,
-            'blocks': blocks
+            'blocks': blocks,
+            'end': this.end
         }
     }
 }

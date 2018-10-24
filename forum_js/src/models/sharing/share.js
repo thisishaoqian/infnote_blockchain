@@ -10,6 +10,9 @@ import {
     PeerManager,
     Message
 } from '../networking'
+import {
+    formatedTime
+} from '../utils'
 
 class ShareManager {
 
@@ -35,11 +38,11 @@ class ShareManager {
                 let url = peer.socket.url
                 peer.dispatcher.globalHandler = that.handle
                 peer.socket.send((new Info()).questionWrapper().dump())
-                console.info('Peer: [' + url + '] connected.')
+                console.info('[' + formatedTime() + '] Peer:[' + url + '] connected.')
             }
             peer.socket.onerror = (err) => {
                 let url = peer.socket.url
-                console.error('Peer: [' + url + '] error: \n' + JSON.stringify(err))
+                console.error('[' + formatedTime() + '] Peer:[' + url + '] error: \n' + JSON.stringify(err))
             }
             peer.socket.onclose = () => {
                 let url = peer.socket.url
@@ -50,7 +53,7 @@ class ShareManager {
                 // need to refine retry mechanism
                 if (peer.retryCount >= 5) {
                     that.peers.splice(that.peers.indexOf(peer), 1)
-                    console.info('Peer: [' + url + '] disconnected.')
+                    console.info('[' + formatedTime() + '] Peer:[' + url + '] disconnected.')
                 } else {
                     setTimeout(() => {
                         peer.socket = new WebSocket(url)
@@ -59,8 +62,7 @@ class ShareManager {
             }
             peer.socket.onmessage = (msg) => {
                 msg = msg.data
-                console.log('Recv msg from peer:[' + peer.socket.url+']')
-                console.log(msg)
+                console.log('[' + formatedTime() + '] Recv from peer:[' + peer.socket.url + ']\n' + msg)
                 let message = Message.load(msg)
                 if (message != null) {
                     peer.dispatcher.dispatch(message, peer)
@@ -89,7 +91,6 @@ class ShareManager {
             console.warn('Bad Sentence: ' + JSON.stringify(message.content))
         }
 
-        console.log('Peer: handle a message')
         switch (message.type) {
         case Message.Type.QUESTION:
             this.handleQuestion(sentence, peer)
@@ -144,24 +145,27 @@ class ShareManager {
         }
         let wb = Factory.wantBlocksForNewBlock(sentence)
         if (wb != null) {
-            let broadcast = (msg, p) => {
+            let handleBlocks = (msg, p) => {
                 this.handle(msg, p)
-                this.broadcast(sentence, peer)
+                let sen = Factory.load(msg)
+                if (sen.type === Sentence.Type.BLOCKS && sen.end){
+                    this.broadcast(sentence, peer)
+                    return true
+                }
             }
-            this.sendQuestion(wb, peer, broadcast)
+            this.sendQuestion(wb, peer, handleBlocks)
         }
     }
 
     broadcast = (sentence, ignoredPeer = null) => {
-        this.broadcastCache[sentence.message.identifier] = sentence
+        this.broadcastCache[sentence.broadcast.identifier] = sentence
 
-        console.log('Broadcasting...')
         for (let p of this.peers) {
             if (ignoredPeer != null && p.address === ignoredPeer.address && p.port === ignoredPeer.port) {
                 continue
             }
-            p.send(sentence.message)
-            console.log('Broadcast to peer[' + p.address + ':' + p.port + ']')
+            p.send(sentence.broadcast)
+            console.log('[' + formatedTime() + '] Broadcast to peer[' + p.socket.url + ']\n')
         }
     }
 
@@ -189,11 +193,13 @@ class ShareManager {
 
     sendQuestion = (question, targetPeer, callback = null) => {
         targetPeer.send(question.questionWrapper().dump(), callback)
+        console.log('[' + formatedTime() + '] Ask to Peer [' + targetPeer.socket.url +'] \n' + question.questionWrapper().dump())
+
     }
 
     sendAnswer = (answer, question, targetPeer) => {
-        // console.log('Reply to ' + targetPeer.dict + '\n' + answer)
         targetPeer.send(answer.answerWrapper(question).dump())
+        console.log('[' + formatedTime() + '] Reply to Peer [' + targetPeer.socket.url +'] \n' + answer.answerWrapper(question).dump())
     }
 
 }

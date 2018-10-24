@@ -13,6 +13,9 @@ import {
 import {
     Blockchain
 } from '../blockchain'
+import {
+    formatedTime
+} from '../utils'
 
 
 class SentenceFactory {
@@ -90,7 +93,7 @@ class SentenceFactory {
     }
 
     static wantPeersForInfo(info) {
-        if (info.peers > 0){
+        if (info.peers > 0) {
             return new WantPeers(info.peers)
         }
         return null
@@ -99,11 +102,11 @@ class SentenceFactory {
     static sendBlocks(wantBlocks) {
         let chain = Blockchain.load(wantBlocks.chainId)
 
-        if (chain == null){
-            return null 
+        if (chain == null) {
+            return null
         }
         let blocks = chain.getBlocks(wantBlocks.fromHeight, wantBlocks.toHeight)
-        
+
         if (blocks == null) {
             return null
         }
@@ -112,7 +115,7 @@ class SentenceFactory {
 
     static sendPeers(wantPeers) {
         let peers = (new PeerManager()).peers(wantPeers.count)
-        if (peers.length <= 0){
+        if (peers.length <= 0) {
             return null
         }
         return new Peers(peers)
@@ -125,21 +128,24 @@ class SentenceFactory {
 
     static handlePeers(peers) {
         // peers: Peers object
+        if (peers == null) {
+            return
+        }
         let pm = new PeerManager()
         for (let peer of peers.peers) {
             pm.addOrUpdatePeer(peer)
+            console.log('[' + formatedTime() + '] Peer updated:\n' + JSON.stringify(peer))
         }
     }
 
     static handleBlocks(blocks) {
         // blocks: Blocks object
-
-        // BUGGY CODE BELOW!
-        let chain = Blockchain.remoteChain(blocks.blocks[0].chainId)
+        if (blocks == null) {
+            return
+        }
         for (let block of blocks.blocks) {
-            if (chain.saveBlock(block)){
-                let now = new Date()
-                console.log(now.getHours() + ':' +  now.getMinutes() + ':' + now.getSeconds() + ',' + now.getMilliseconds())
+            if (Blockchain.remoteChain(block.chainId).saveBlock(block)) {
+                console.log('[' + formatedTime() + '] Block saved:\n' + JSON.stringify(block))
             }
         }
 

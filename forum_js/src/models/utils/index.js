@@ -1,0 +1,1 @@
+export {formatedTime} from './dateutil'

@@ -8,7 +8,6 @@ import {ShareManager} from './models/sharing'
 class App extends Component {
 
     connect() {
-        console.log('connecting to peer')
         let addr = document.getElementById('peerAddr').value
         let port = document.getElementById('peerPort').value
         let sm = new ShareManager()

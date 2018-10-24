@@ -36,12 +36,13 @@ class Peer {
         }
 
         this.socket.send(message)
-        console.log('Peer sending message: \n' + message)
+        // console.log('Peer sending message: \n' + message)
     }
 
 
     save() {
-        (new PeerManager()).addOrUpdatePeer(this)
+        let index = prefixP + '+' + this.address + '+' + this.port
+        localStorage.setItem(index, this.rank.toString())
     }
 }
 

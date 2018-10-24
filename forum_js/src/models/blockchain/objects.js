@@ -4,6 +4,7 @@ import {
 } from 'bitcoinjs-lib'
 import Key from './key'
 import Storage from './storage'
+import {formatedTime} from '../utils'
 
 class Block {
 
@@ -67,10 +68,9 @@ class Block {
 
     get isValid() {
         let key = new Key(this.chainId)
-        var flag = (this.height === 0 || (this.prevHash != null && this.prevHash.length > 0))
-        flag = bs58.encode(crypto.sha256(this.dataForHashing)) === this.blockHash
-        flag = key.verify(this.signature, this.dataForHashing)
-        return flag
+        return (this.height === 0 || (this.prevHash != null && this.prevHash.length > 0)) &&
+            bs58.encode(crypto.sha256(this.dataForHashing)) === this.blockHash &&
+            key.verify(this.signature, this.dataForHashing)
     }
 
     str() {
@@ -98,6 +98,7 @@ class Blockchain {
         if (chain == null) {
             let remote = new Blockchain(new Key(publicKey))
             remote.save()
+            console.log('[' + formatedTime() + '] Chain saved:\n' + JSON.stringify(remote))
             return remote
         }
         return chain
@@ -117,21 +118,6 @@ class Blockchain {
         }
         return null
     }
-
-    // browser cannot create blocks or chains, this function is not needed
-    // static create(blockInfo) {
-    //     /*
-    //     blockInfo should contains genisis block info
-    //     There should be 6 fields:
-    //     name, version, author, website, email, desc
-    //     */
-    //     let chain = new Blockchain(new Key())
-    //     let block = chain.createBlock(JSON.stringify(blockInfo, Object.keys(blockInfo).sort()))
-    //     chain.save()
-    //     chain.saveBlock(block)
-
-    //     return chain
-    // }
 
     constructor(keyObj) {
         this.key = keyObj
@@ -161,10 +147,10 @@ class Blockchain {
 
     getBlocks(start, end) {
         let infos = this.storage.getBlocks(this.id, start, end)
-        if (infos == null){
+        if (infos == null) {
             return null
         }
-        
+
         let blocks = []
         for (let info of infos) {
             blocks.push(new Block(info))
