@@ -23,8 +23,8 @@ class App extends Component {
                     <h1 className="App-title">Blockchain Test</h1>
                 </header>
                 <div id="data_input">
-                    <input id="peerAddr" type="text" />
-                    <input id="peerPort" type="text" />
+                    <input id="peerAddr" type="text" defaultValue="localhost"/>
+                    <input id="peerPort" type="text" defaultValue="32767"/>
                     <button id="btnConnect" onClick={this.connect}>create</button>
                     <br />
                     <p>p2p testing</p>

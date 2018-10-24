@@ -258,8 +258,8 @@ class WantBlocks extends Sentence {
         return {
             'type': this.type,
             'chain_id': this.chainId,
-            'from_height': this.fromHeight,
-            'to_height': this.toHeight
+            'from': this.fromHeight,
+            'to': this.toHeight
         }
     }
 }
@@ -309,7 +309,7 @@ class NewBlock extends Sentence {
     static load(d) {
         let newBlock = new NewBlock()
         try {
-            newBlock.chianId = d['chain_id']
+            newBlock.chainId = d['chain_id']
             newBlock.height = d['height']
             return newBlock
         } catch (e) {

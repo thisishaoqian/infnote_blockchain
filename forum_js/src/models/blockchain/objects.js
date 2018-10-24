@@ -67,12 +67,10 @@ class Block {
 
     get isValid() {
         let key = new Key(this.chainId)
-        return (
-            this.height === 0 ||
-            ((this.prevHash != null && this.prevHash.length > 0) &&
-            bs58.encode(crypto.sha256(this.dataForHashing)) === this.blockHash &&
-            key.verify(this.signature, this.dataForHashing))
-        )
+        var flag = (this.height === 0 || (this.prevHash != null && this.prevHash.length > 0))
+        flag = bs58.encode(crypto.sha256(this.dataForHashing)) === this.blockHash
+        flag = key.verify(this.signature, this.dataForHashing)
+        return flag
     }
 
     str() {
@@ -97,7 +95,7 @@ class Blockchain {
 
     static remoteChain(publicKey) {
         let chain = Blockchain.load(publicKey)
-        if (chain != null) {
+        if (chain == null) {
             let remote = new Blockchain(new Key(publicKey))
             remote.save()
             return remote
@@ -121,19 +119,19 @@ class Blockchain {
     }
 
     // browser cannot create blocks or chains, this function is not needed
-    static create(blockInfo) {
-        /*
-        blockInfo should contains genisis block info
-        There should be 6 fields:
-        name, version, author, website, email, desc
-        */
-        let chain = new Blockchain(new Key())
-        let block = chain.createBlock(JSON.stringify(blockInfo, Object.keys(blockInfo).sort()))
-        chain.save()
-        chain.saveBlock(block)
+    // static create(blockInfo) {
+    //     /*
+    //     blockInfo should contains genisis block info
+    //     There should be 6 fields:
+    //     name, version, author, website, email, desc
+    //     */
+    //     let chain = new Blockchain(new Key())
+    //     let block = chain.createBlock(JSON.stringify(blockInfo, Object.keys(blockInfo).sort()))
+    //     chain.save()
+    //     chain.saveBlock(block)
 
-        return chain
-    }
+    //     return chain
+    // }
 
     constructor(keyObj) {
         this.key = keyObj

@@ -34,7 +34,9 @@ class Peer {
         if (callback != null) {
             this.dispatcher.register(message.identifier, callback)
         }
+
         this.socket.send(message)
+        console.log('Peer sending message: \n' + message)
     }
 
 

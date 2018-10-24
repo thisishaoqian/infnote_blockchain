@@ -133,9 +133,16 @@ class SentenceFactory {
 
     static handleBlocks(blocks) {
         // blocks: Blocks object
-        for (let block of blocks) {
-            Blockchain.remoteChain(block.chainId).saveBlock(block)
+
+        // BUGGY CODE BELOW!
+        let chain = Blockchain.remoteChain(blocks.blocks[0].chainId)
+        for (let block of blocks.blocks) {
+            if (chain.saveBlock(block)){
+                let now = new Date()
+                console.log(now.getHours() + ':' +  now.getMinutes() + ':' + now.getSeconds() + ',' + now.getMilliseconds())
+            }
         }
+
     }
 }
 

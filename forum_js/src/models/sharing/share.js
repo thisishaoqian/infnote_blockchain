@@ -58,9 +58,9 @@ class ShareManager {
                 }
             }
             peer.socket.onmessage = (msg) => {
-                console.log('Recv msg from peer:' + peer.socket.url + '. \nmsg: ' + msg.data)
                 msg = msg.data
-                // msg = JSON.parse(msg.data)
+                console.log('Recv msg from peer:[' + peer.socket.url+']')
+                console.log(msg)
                 let message = Message.load(msg)
                 if (message != null) {
                     peer.dispatcher.dispatch(message, peer)

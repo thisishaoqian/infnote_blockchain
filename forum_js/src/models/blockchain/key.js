@@ -3,7 +3,7 @@ import ECKey from 'ec-key'
 
 class Key {
 
-    constructor(id, publicKey = null, privateKey = null) {
+    constructor(publicKey = null, privateKey = null) {
 
         this._privateKey = null
         this._publicKey = null
