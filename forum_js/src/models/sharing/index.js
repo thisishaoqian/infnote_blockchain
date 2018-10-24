@@ -1,10 +1,10 @@
 export {
-    SentenceFactory
+    default as SentenceFactory
 }
     from './factory'
 
 export {
-    ShareManager
+    default as ShareManager
 }
     from './share'
 

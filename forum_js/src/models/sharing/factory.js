@@ -1,5 +1,5 @@
 import {
-    PeerManage
+    PeerManager
 } from '../networking'
 import {
     Info,
@@ -111,7 +111,7 @@ class SentenceFactory {
     }
 
     static sendPeers(wantPeers) {
-        let peers = (new PeerManage()).peers(wantPeers.count)
+        let peers = (new PeerManager()).peers(wantPeers.count)
         if (peers.length <= 0){
             return null
         }
@@ -125,7 +125,7 @@ class SentenceFactory {
 
     static handlePeers(peers) {
         // peers: Peers object
-        let pm = new PeerManage()
+        let pm = new PeerManager()
         for (let peer of peers.peers) {
             pm.addOrUpdatePeer(peer)
         }

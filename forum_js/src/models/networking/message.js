@@ -9,9 +9,9 @@ class Message {
         ERROR: 'error',
     }
 
-    constructor(content = {}, type = Message.Type.QUESTION, identifier = null) {
+    constructor(content = {}, type = Message.Type.QUESTION, identifier = '') {
         
-        function identifierGenerator() {
+        let identifierGenerator = () => {
             let arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -28,19 +28,19 @@ class Message {
 
         this.content = content
         this.type = type
-        this.identifier = identifier != null ? identifier : identifierGenerator()
+        this.identifier = identifier !== '' ? identifier : identifierGenerator()
     }
 
     static load(jsonString) {
         try {
             let json = JSON.parse(jsonString)
-            let msg = Message()
+            let msg = new Message()
             msg.identifier = json['identifier']
             msg.type = json['type']
             msg.content = json['content']
             return msg
         } catch (e) {
-            console.log(e)
+            // console.log(e)
             return null
         }
     }
@@ -48,8 +48,8 @@ class Message {
     dump() {
         let json = {
             'identifier': this.identifier,
-            'type': this.type.name,
-            'content': self.content
+            'type': this.type,
+            'content': this.content
         }
         return JSON.stringify(json)
     }

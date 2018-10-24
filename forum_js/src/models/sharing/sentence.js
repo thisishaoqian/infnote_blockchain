@@ -66,7 +66,7 @@ class Sentence {
             return value
         }
 
-        function max_width_cal(r, x) {
+        let max_width_cal = (r, x) => {
             return r > x.length ? r : x.length
         }
 
@@ -89,8 +89,8 @@ class Sentence {
 class Info extends Sentence {
 
     constructor(version = '0.1', peers = 0, chains = {}, platform = {}, isFullNode = false) {
-        super(Sentence.Type.INFO)
-        // this.type = Sentence.Type.INFO
+        super()
+        this.type = Sentence.Type.INFO
         this.version = version
         this.peers = peers
         this.chains = chains
@@ -109,7 +109,7 @@ class Info extends Sentence {
         }
 
         if (this.peers === 0) {
-            this.peers = PeerManager().count()
+            this.peers = (new PeerManager()).count
         }
     }
 
@@ -130,7 +130,7 @@ class Info extends Sentence {
 
     get dict() {
         return {
-            'type': super.type,
+            'type': this.type,
             'version': this.version,
             'peers': this.peers,
             'chains': this.chains,
@@ -143,7 +143,8 @@ class Info extends Sentence {
 class Error extends Sentence {
 
     constructor(code = 0, desc = '') {
-        super(Sentence.Type.ERROR)
+        super()
+        this.type = Sentence.Type.ERROR
         this.code = code
         this.desc = desc
     }
@@ -162,9 +163,9 @@ class Error extends Sentence {
 
     get dict() {
         return {
-            'type': super.type,
-            'code': self.code,
-            'desc': self.desc
+            'type': this.type,
+            'code': this.code,
+            'desc': this.desc
         }
     }
 }
@@ -172,7 +173,8 @@ class Error extends Sentence {
 class WantPeers extends Sentence {
 
     constructor(count = 0) {
-        super(Sentence.Type.WANT_PEERS)
+        super()
+        this.type = Sentence.Type.WANT_PEERS
         this.count = count
     }
 
@@ -189,7 +191,7 @@ class WantPeers extends Sentence {
 
     get dict() {
         return {
-            'type': super.type,
+            'type': this.type,
             'count': this.count
         }
     }
@@ -198,7 +200,8 @@ class WantPeers extends Sentence {
 class Peers extends Sentence {
 
     constructor(peerList = []) {
-        super(Sentence.Type.PEERS)
+        super()
+        this.type = Sentence.Type.PEERS
         this.peers = peerList // list of Peer objects
     }
 
@@ -221,7 +224,7 @@ class Peers extends Sentence {
             peers.push(peer.dict)
         }
         return {
-            'type': super.type,
+            'type': this.type,
             'peers': peers
         }
     }
@@ -230,7 +233,8 @@ class Peers extends Sentence {
 class WantBlocks extends Sentence {
 
     constructor(chainId = '', fromHeight = 0, toHeight = 0) {
-        super(Sentence.Type.WANT_BLOCKS)
+        super()
+        this.type = Sentence.Type.WANT_BLOCKS
         this.chainId = chainId
         this.fromHeight = fromHeight
         this.toHeight = toHeight
@@ -252,7 +256,7 @@ class WantBlocks extends Sentence {
 
     get dict() {
         return {
-            'type': super.type,
+            'type': this.type,
             'chain_id': this.chainId,
             'from_height': this.fromHeight,
             'to_height': this.toHeight
@@ -263,7 +267,8 @@ class WantBlocks extends Sentence {
 class Blocks extends Sentence {
 
     constructor(blockList = []) {
-        super(Sentence.Type.BLOCKS)
+        super()
+        this.type = Sentence.Type.BLOCKS
         this.blocks = blockList
     }
 
@@ -286,7 +291,7 @@ class Blocks extends Sentence {
             blocks.push(block.dict)
         }
         return {
-            'type': super.type,
+            'type': this.type,
             'blocks': blocks
         }
     }
@@ -295,7 +300,8 @@ class Blocks extends Sentence {
 class NewBlock extends Sentence {
 
     constructor(chainId = '', height = 0) {
-        super(Sentence.Type.NEW_BLOCK)
+        super()
+        this.type = Sentence.Type.NEW_BLOCK
         this.chainId = chainId
         this.height = height
     }
@@ -314,7 +320,7 @@ class NewBlock extends Sentence {
 
     get dict() {
         return {
-            'type': super.type,
+            'type': this.type,
             'chain_id': this.chainId,
             'height': this.height
         }

@@ -1,9 +1,6 @@
 import {
     default as Dispatcher
 } from './dispatcher'
-import {
-    default as Message
-} from './message'
 
 const prefixP = 'p'
 
@@ -33,15 +30,13 @@ class Peer {
     }
 
     send(message, callback) {
+        // message: stringified Message object
         if (callback != null) {
             this.dispatcher.register(message.identifier, callback)
         }
-        this.socket.send(message.dump())
+        this.socket.send(message)
     }
 
-    // recv() {
-    //// -> onmessage() 
-    // }
 
     save() {
         (new PeerManager()).addOrUpdatePeer(this)
@@ -100,7 +95,7 @@ class PeerManager {
         }
 
         let indexes = Object.keys(peerCollection)
-        indexes.sort(function (first, second) {
+        indexes.sort((first, second) => {
             return peerCollection(first) - peerCollection(second)
         })
 

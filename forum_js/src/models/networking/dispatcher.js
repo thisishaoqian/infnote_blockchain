@@ -5,11 +5,7 @@ class Dispatcher {
         this.handlers = handlers
         this.globalHandler = globalHandler
     }
-
-    send(message) {
-        this.socket.send(message.dump())
-    }
-
+    
     register(identifier, handler) {
         this.handlers[identifier] = handler
     }
