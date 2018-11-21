@@ -1,0 +1,369 @@
+2018-11-16 00:10:51,557 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 00:12:21,634 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 00:12:29,874 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 00:12:34,619 INFO qname infnote.com
+2018-11-16 00:12:39,618 INFO qname infnote.com
+2018-11-16 00:12:44,621 INFO qname infnote.com
+2018-11-16 00:13:08,642 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 00:13:14,552 INFO qname infnote.com
+2018-11-16 00:13:19,553 INFO qname infnote.com
+2018-11-16 00:13:24,555 INFO qname infnote.com
+2018-11-16 00:15:59,906 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 10:11:34,049 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 10:12:20,295 INFO ret:
+2018-11-16 10:12:20,297 INFO []
+2018-11-16 10:12:34,963 INFO ret:
+2018-11-16 10:12:34,964 INFO []
+2018-11-16 10:14:45,916 INFO ret:
+2018-11-16 10:14:45,916 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 10:14:49,042 INFO ret:
+2018-11-16 10:14:49,043 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 10:16:18,823 INFO ret:
+2018-11-16 10:16:18,823 INFO []
+2018-11-16 10:16:22,332 INFO ret:
+2018-11-16 10:16:22,332 INFO []
+2018-11-16 10:34:35,431 INFO ret:
+2018-11-16 10:34:35,431 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 10:47:11,085 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 10:47:21,312 INFO dns 
+2018-11-16 10:47:21,313 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 10:47:21,313 INFO query name
+2018-11-16 10:47:21,313 INFO infnote.com
+2018-11-16 10:47:21,313 INFO ret:
+2018-11-16 10:47:21,313 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 10:50:02,136 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 10:50:03,522 INFO dns 
+2018-11-16 10:50:03,522 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 10:50:03,523 INFO query name
+2018-11-16 10:50:03,523 INFO infnote.com
+2018-11-16 10:50:03,523 INFO ret:
+2018-11-16 10:50:03,523 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 10:50:07,508 INFO query from cache
+2018-11-16 10:50:09,569 INFO query from cache
+2018-11-16 10:52:49,486 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 10:52:57,352 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 10:59:43,692 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 10:59:48,499 INFO infnote_db file do not change
+2018-11-16 10:59:48,500 INFO query from infnote_db file
+2018-11-16 10:59:48,500 INFO dns 
+2018-11-16 10:59:48,500 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 10:59:48,500 INFO query name
+2018-11-16 10:59:48,500 INFO infnote.com
+2018-11-16 10:59:48,500 INFO ret:
+2018-11-16 10:59:48,500 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 10:59:50,427 INFO infnote_db file do not change
+2018-11-16 10:59:50,427 INFO query from cache
+2018-11-16 11:01:41,205 INFO infnote_db file do not change
+2018-11-16 11:01:41,205 INFO query from cache
+2018-11-16 11:09:17,185 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 11:09:23,092 INFO infnote_db file do not change
+2018-11-16 11:09:23,092 INFO query from infnote_db file
+2018-11-16 11:09:23,092 INFO dns 
+2018-11-16 11:09:23,093 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 11:09:23,093 INFO query name
+2018-11-16 11:09:23,093 INFO infnote.com
+2018-11-16 11:09:23,093 INFO ret:
+2018-11-16 11:09:23,093 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 11:09:24,830 INFO infnote_db file do not change
+2018-11-16 11:09:24,830 INFO query from cache
+2018-11-16 11:10:29,714 INFO infnote_db file is updating
+2018-11-16 11:10:29,715 INFO query from cache
+2018-11-16 11:10:29,715 INFO query from cache
+2018-11-16 11:11:08,710 INFO infnote_db file is updating
+2018-11-16 11:11:08,710 INFO query from cache
+2018-11-16 11:11:08,710 INFO query from cache
+2018-11-16 11:11:10,213 INFO infnote_db file is updating
+2018-11-16 11:11:10,213 INFO query from cache
+2018-11-16 11:11:10,213 INFO query from cache
+2018-11-16 11:11:11,436 INFO infnote_db file is updating
+2018-11-16 11:11:11,436 INFO query from cache
+2018-11-16 11:11:11,436 INFO query from cache
+2018-11-16 11:14:56,823 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 11:15:02,692 INFO infnote_db file does not change
+2018-11-16 11:15:07,698 INFO infnote_db file does not change
+2018-11-16 11:15:12,699 INFO infnote_db file does not change
+2018-11-16 11:15:31,362 INFO infnote_db file does not change
+2018-11-16 11:15:36,368 INFO infnote_db file does not change
+2018-11-16 11:15:41,372 INFO infnote_db file does not change
+2018-11-16 11:16:24,300 INFO infnote_db file does not change
+2018-11-16 11:16:29,304 INFO infnote_db file does not change
+2018-11-16 11:16:34,307 INFO infnote_db file does not change
+2018-11-16 11:19:37,734 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 11:19:42,281 INFO infnote_db file does not change
+2018-11-16 11:19:42,281 INFO query from infnote_db file
+2018-11-16 11:19:42,282 INFO dns 
+2018-11-16 11:19:42,282 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 11:19:42,282 INFO query name
+2018-11-16 11:19:42,282 INFO infnote.com
+2018-11-16 11:19:42,282 INFO ret:
+2018-11-16 11:19:42,282 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 11:19:45,333 INFO infnote_db file does not change
+2018-11-16 11:19:45,333 INFO query from cache
+2018-11-16 11:20:39,004 INFO infnote_db file does not change
+2018-11-16 11:20:39,004 INFO query from cache
+2018-11-16 11:20:40,213 INFO infnote_db file does not change
+2018-11-16 11:20:40,214 INFO query from cache
+2018-11-16 11:20:41,140 INFO infnote_db file does not change
+2018-11-16 11:20:41,140 INFO query from cache
+2018-11-16 11:20:42,123 INFO infnote_db file does not change
+2018-11-16 11:20:42,123 INFO query from cache
+2018-11-16 11:20:43,438 INFO infnote_db file does not change
+2018-11-16 11:20:43,438 INFO query from cache
+2018-11-16 11:23:06,037 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 11:23:09,693 INFO infnote_db file does not change
+2018-11-16 11:23:09,693 INFO query from infnote_db file
+2018-11-16 11:23:09,694 INFO dns 
+2018-11-16 11:23:09,694 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 11:23:09,694 INFO query name
+2018-11-16 11:23:09,694 INFO infnote.com
+2018-11-16 11:23:09,694 INFO ret:
+2018-11-16 11:23:09,695 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 11:23:11,189 INFO infnote_db file does not change
+2018-11-16 11:23:11,189 INFO query from cache
+2018-11-16 11:23:37,335 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 11:23:42,602 INFO infnote_db file does not change
+2018-11-16 11:23:42,602 INFO query from infnote_db file
+2018-11-16 11:23:42,603 INFO dns 
+2018-11-16 11:23:42,604 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:23:42,604 INFO query name
+2018-11-16 11:23:42,604 INFO infnote.com
+2018-11-16 11:23:42,604 INFO ret:
+2018-11-16 11:23:42,604 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:23:44,319 INFO infnote_db file does not change
+2018-11-16 11:23:44,319 INFO query from cache
+2018-11-16 11:24:12,548 INFO infnote_db file does not change
+2018-11-16 11:24:12,548 INFO query from cache
+2018-11-16 11:24:13,826 INFO infnote_db file does not change
+2018-11-16 11:24:13,826 INFO query from cache
+2018-11-16 11:24:14,745 INFO infnote_db file does not change
+2018-11-16 11:24:14,746 INFO query from cache
+2018-11-16 11:24:16,178 INFO infnote_db file does not change
+2018-11-16 11:24:16,179 INFO query from cache
+2018-11-16 11:24:16,868 INFO infnote_db file does not change
+2018-11-16 11:24:16,868 INFO query from cache
+2018-11-16 11:24:17,444 INFO infnote_db file does not change
+2018-11-16 11:24:17,444 INFO query from cache
+2018-11-16 11:24:17,989 INFO infnote_db file does not change
+2018-11-16 11:24:17,989 INFO query from cache
+2018-11-16 11:24:18,613 INFO infnote_db file does not change
+2018-11-16 11:24:18,614 INFO query from cache
+2018-11-16 11:24:19,214 INFO infnote_db file does not change
+2018-11-16 11:24:19,214 INFO query from cache
+2018-11-16 11:32:34,302 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 11:32:39,109 INFO infnote_db file does not change
+2018-11-16 11:32:39,109 INFO get nothing from cache
+2018-11-16 11:32:39,110 INFO query from infnote_db file
+2018-11-16 11:32:39,110 INFO dns 
+2018-11-16 11:32:39,110 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 11:32:39,110 INFO query name
+2018-11-16 11:32:39,110 INFO infnote.com
+2018-11-16 11:32:39,110 INFO ret:
+2018-11-16 11:32:39,110 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 11:32:41,026 INFO infnote_db file does not change
+2018-11-16 11:32:41,026 INFO query from cache
+2018-11-16 11:32:42,230 INFO infnote_db file does not change
+2018-11-16 11:32:42,230 INFO query from cache
+2018-11-16 11:33:31,697 INFO infnote_db file is updating or not exists
+2018-11-16 11:33:31,697 INFO query from cache
+2018-11-16 11:33:32,872 INFO infnote_db file is updating or not exists
+2018-11-16 11:33:32,872 INFO query from cache
+2018-11-16 11:33:33,685 INFO infnote_db file is updating or not exists
+2018-11-16 11:33:33,685 INFO query from cache
+2018-11-16 11:33:34,376 INFO infnote_db file is updating or not exists
+2018-11-16 11:33:34,377 INFO query from cache
+2018-11-16 11:33:35,064 INFO infnote_db file is updating or not exists
+2018-11-16 11:33:35,064 INFO query from cache
+2018-11-16 11:33:35,818 INFO infnote_db file is updating or not exists
+2018-11-16 11:33:35,818 INFO query from cache
+2018-11-16 11:33:36,776 INFO infnote_db file is updating or not exists
+2018-11-16 11:33:36,776 INFO query from cache
+2018-11-16 11:33:37,585 INFO infnote_db file is updating or not exists
+2018-11-16 11:33:37,585 INFO query from cache
+2018-11-16 11:33:58,478 INFO query from infnote_db file
+2018-11-16 11:33:58,479 INFO dns 
+2018-11-16 11:33:58,479 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:33:58,479 INFO query name
+2018-11-16 11:33:58,479 INFO infnote.com
+2018-11-16 11:33:58,479 INFO ret:
+2018-11-16 11:33:58,479 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:34:01,856 INFO query from infnote_db file
+2018-11-16 11:34:01,856 INFO dns 
+2018-11-16 11:34:01,856 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:34:01,856 INFO query name
+2018-11-16 11:34:01,856 INFO infnote.com
+2018-11-16 11:34:01,857 INFO ret:
+2018-11-16 11:34:01,857 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:34:38,968 INFO query from infnote_db file
+2018-11-16 11:34:38,969 INFO dns 
+2018-11-16 11:34:38,969 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:34:38,969 INFO query name
+2018-11-16 11:34:38,969 INFO infnote.com
+2018-11-16 11:34:38,969 INFO ret:
+2018-11-16 11:34:38,969 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:34:40,731 INFO query from infnote_db file
+2018-11-16 11:34:40,731 INFO dns 
+2018-11-16 11:34:40,731 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:34:40,731 INFO query name
+2018-11-16 11:34:40,731 INFO infnote.com
+2018-11-16 11:34:40,731 INFO ret:
+2018-11-16 11:34:40,731 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:38:19,823 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 11:43:09,697 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 11:43:18,232 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 11:43:23,038 INFO infnote_db file does not change
+2018-11-16 11:43:23,038 INFO get nothing from cache
+2018-11-16 11:43:23,038 INFO query from infnote_db file
+2018-11-16 11:43:23,039 INFO dns 
+2018-11-16 11:43:23,039 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:43:23,039 INFO query name
+2018-11-16 11:43:23,039 INFO infnote.com
+2018-11-16 11:43:23,039 INFO ret:
+2018-11-16 11:43:23,039 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '192.168.4.99'), ('infnote.com', '192.168.4.77'), ('infnote.com', '192.168.4.78'), ('infnote.com', '192.168.4.79'), ('infnote.com', '192.168.4.80'), ('infnote.com', '192.168.4.81')]
+2018-11-16 11:43:24,557 INFO infnote_db file does not change
+2018-11-16 11:43:24,557 INFO query from cache
+2018-11-16 11:43:25,376 INFO infnote_db file does not change
+2018-11-16 11:43:25,377 INFO query from cache
+2018-11-16 11:43:26,024 INFO infnote_db file does not change
+2018-11-16 11:43:26,024 INFO query from cache
+2018-11-16 11:43:26,818 INFO infnote_db file does not change
+2018-11-16 11:43:26,818 INFO query from cache
+2018-11-16 11:44:13,668 INFO query from infnote_db file
+2018-11-16 11:44:13,669 INFO dns 
+2018-11-16 11:44:13,669 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '47.254.197.123'), ('infnote.com', '47.91.57.71'), ('infnote.com', '47.74.155.165')]
+2018-11-16 11:44:13,669 INFO query name
+2018-11-16 11:44:13,669 INFO infnote.com
+2018-11-16 11:44:13,669 INFO ret:
+2018-11-16 11:44:13,670 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '47.254.197.123'), ('infnote.com', '47.91.57.71'), ('infnote.com', '47.74.155.165')]
+2018-11-16 11:44:32,312 INFO infnote_db file does not change
+2018-11-16 11:44:32,313 INFO query from cache
+2018-11-16 11:45:55,107 INFO infnote_db file does not change
+2018-11-16 11:45:55,108 INFO query from cache
+2018-11-16 11:49:27,133 INFO query from infnote_db file
+2018-11-16 11:49:27,134 INFO dns 
+2018-11-16 11:49:27,134 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 11:49:27,134 INFO query name
+2018-11-16 11:49:27,134 INFO infnote.com
+2018-11-16 11:49:27,134 INFO ret:
+2018-11-16 11:49:27,134 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 11:49:29,689 INFO infnote_db file does not change
+2018-11-16 11:49:29,689 INFO query from cache
+2018-11-16 11:49:38,008 INFO infnote_db file does not change
+2018-11-16 11:49:38,008 INFO query from cache
+2018-11-16 11:49:39,215 INFO infnote_db file does not change
+2018-11-16 11:49:39,215 INFO query from cache
+2018-11-16 13:31:19,933 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 13:31:38,206 INFO infnote_db file does not change
+2018-11-16 13:31:38,207 INFO get nothing from cache
+2018-11-16 13:31:38,207 INFO query from infnote_db file
+2018-11-16 13:31:38,207 INFO dns 
+2018-11-16 13:31:38,207 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 13:31:38,207 INFO query name
+2018-11-16 13:31:38,208 INFO infnote.com
+2018-11-16 13:31:38,208 INFO ret:
+2018-11-16 13:31:38,208 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 13:31:40,414 INFO infnote_db file does not change
+2018-11-16 13:31:40,415 INFO query from cache
+2018-11-16 13:31:41,501 INFO infnote_db file does not change
+2018-11-16 13:31:41,501 INFO query from cache
+2018-11-16 13:31:42,378 INFO infnote_db file does not change
+2018-11-16 13:31:42,378 INFO query from cache
+2018-11-16 13:32:37,831 INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 13:33:24,308 INFO infnote_db file is updating or not exists
+2018-11-16 13:33:24,308 INFO query from cache
+2018-11-16 13:33:25,629 INFO infnote_db file is updating or not exists
+2018-11-16 13:33:25,630 INFO query from cache
+2018-11-16 13:33:26,618 INFO infnote_db file is updating or not exists
+2018-11-16 13:33:26,618 INFO query from cache
+2018-11-16 13:34:03,699 INFO query from infnote_db file
+2018-11-16 13:34:03,700 INFO dns 
+2018-11-16 13:34:03,700 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '47.254.197.123'), ('infnote.com', '47.91.57.71'), ('infnote.com', '47.74.155.165')]
+2018-11-16 13:34:03,700 INFO query name
+2018-11-16 13:34:03,700 INFO infnote.com
+2018-11-16 13:34:03,700 INFO ret:
+2018-11-16 13:34:03,700 INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '47.254.197.123'), ('infnote.com', '47.91.57.71'), ('infnote.com', '47.74.155.165')]
+2018-11-16 13:34:05,510 INFO infnote_db file does not change
+2018-11-16 13:34:05,510 INFO query from cache
+2018-11-16 13:34:17,440 INFO infnote_db file does not change
+2018-11-16 13:34:17,440 INFO query from cache
+2018-11-16 13:36:06,886 INFO query from infnote_db file
+2018-11-16 13:36:06,887 INFO dns 
+2018-11-16 13:36:06,887 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 13:36:06,887 INFO query name
+2018-11-16 13:36:06,887 INFO infnote.com
+2018-11-16 13:36:06,887 INFO ret:
+2018-11-16 13:36:06,887 INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 13:36:34,838 INFO infnote_db file does not change
+2018-11-16 13:36:34,838 INFO query from cache
+2018-11-16 Friday 13:51:43 infnote_dns.py[line:165] INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 Friday 13:51:54 infnote_dns.py[line:107] INFO infnote_db file does not change
+2018-11-16 Friday 13:51:54 infnote_dns.py[line:117] INFO get nothing from cache
+2018-11-16 Friday 13:51:54 infnote_dns.py[line:118] INFO query from infnote_db file
+2018-11-16 Friday 13:51:54 infnote_dns.py[line:43] INFO dns 
+2018-11-16 Friday 13:51:54 infnote_dns.py[line:44] INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 Friday 13:51:54 infnote_dns.py[line:50] INFO query name
+2018-11-16 Friday 13:51:54 infnote_dns.py[line:51] INFO infnote.com
+2018-11-16 Friday 13:51:54 infnote_dns.py[line:52] INFO ret:
+2018-11-16 Friday 13:51:54 infnote_dns.py[line:53] INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 Friday 14:00:43 infnote_dns.py[line:165] INFO Start DNS server at 0.0.0.0:9953
+
+2018-11-16 Friday 14:00:53 infnote_dns.py[line:107] INFO infnote_db file does not change
+2018-11-16 Friday 14:00:53 infnote_dns.py[line:117] INFO get nothing from cache
+2018-11-16 Friday 14:00:53 infnote_dns.py[line:118] INFO query from infnote_db file
+2018-11-16 Friday 14:00:53 infnote_dns.py[line:43] INFO dns 
+2018-11-16 Friday 14:00:53 infnote_dns.py[line:44] INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '47.74.45.239'), ('infnote.com', '47.74.45.239'), ('infnote.com', '47.74.45.239')]
+2018-11-16 Friday 14:00:53 infnote_dns.py[line:50] INFO query name
+2018-11-16 Friday 14:00:53 infnote_dns.py[line:51] INFO infnote.com
+2018-11-16 Friday 14:00:53 infnote_dns.py[line:52] INFO ret:
+2018-11-16 Friday 14:00:53 infnote_dns.py[line:53] INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '47.74.45.239'), ('infnote.com', '47.74.45.239'), ('infnote.com', '47.74.45.239')]
+2018-11-16 Friday 14:00:56 infnote_dns.py[line:107] INFO infnote_db file does not change
+2018-11-16 Friday 14:00:56 infnote_dns.py[line:112] INFO query from cache
+2018-11-16 Friday 14:01:15 infnote_dns.py[line:127] INFO query from infnote_db file
+2018-11-16 Friday 14:01:15 infnote_dns.py[line:43] INFO dns 
+2018-11-16 Friday 14:01:15 infnote_dns.py[line:44] INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '47.74.45.236'), ('infnote.com', '47.74.45.237'), ('infnote.com', '47.74.45.238')]
+2018-11-16 Friday 14:01:15 infnote_dns.py[line:50] INFO query name
+2018-11-16 Friday 14:01:15 infnote_dns.py[line:51] INFO infnote.com
+2018-11-16 Friday 14:01:15 infnote_dns.py[line:52] INFO ret:
+2018-11-16 Friday 14:01:15 infnote_dns.py[line:53] INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '47.74.45.236'), ('infnote.com', '47.74.45.237'), ('infnote.com', '47.74.45.238')]
+2018-11-16 Friday 14:01:17 infnote_dns.py[line:107] INFO infnote_db file does not change
+2018-11-16 Friday 14:01:17 infnote_dns.py[line:112] INFO query from cache
+2018-11-16 Friday 14:32:45 infnote_dns.py[line:165] INFO Start DNS server at 0.0.0.0:53
+
+2018-11-16 Friday 14:33:27 infnote_dns.py[line:107] INFO infnote_db file does not change
+2018-11-16 Friday 14:33:27 infnote_dns.py[line:117] INFO get nothing from cache
+2018-11-16 Friday 14:33:27 infnote_dns.py[line:118] INFO query from infnote_db file
+2018-11-16 Friday 14:33:27 infnote_dns.py[line:43] INFO dns 
+2018-11-16 Friday 14:33:27 infnote_dns.py[line:44] INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '47.74.45.236'), ('infnote.com', '47.74.45.237'), ('infnote.com', '47.74.45.238')]
+2018-11-16 Friday 14:33:27 infnote_dns.py[line:50] INFO query name
+2018-11-16 Friday 14:33:27 infnote_dns.py[line:51] INFO infnote.com
+2018-11-16 Friday 14:33:27 infnote_dns.py[line:52] INFO ret:
+2018-11-16 Friday 14:33:27 infnote_dns.py[line:53] INFO [('infnote.com', '47.74.45.239'), ('infnote.com', '47.74.45.236'), ('infnote.com', '47.74.45.237'), ('infnote.com', '47.74.45.238')]
+2018-11-16 Friday 14:55:38 infnote_dns.py[line:127] INFO query from infnote_db file
+2018-11-16 Friday 14:55:38 infnote_dns.py[line:43] INFO dns 
+2018-11-16 Friday 14:55:38 infnote_dns.py[line:44] INFO [('infnote.com', '47.74.45.239')]
+2018-11-16 Friday 14:55:38 infnote_dns.py[line:50] INFO query name
+2018-11-16 Friday 14:55:38 infnote_dns.py[line:51] INFO infnote.com
+2018-11-16 Friday 14:55:38 infnote_dns.py[line:52] INFO ret:
+2018-11-16 Friday 14:55:38 infnote_dns.py[line:53] INFO [('infnote.com', '47.74.45.239')]
