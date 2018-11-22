@@ -16,9 +16,9 @@ REQUIREMENTS
 
 $ pip install dnslib gevent socketserver pylru
 
-sudo nohup python infnote_dns.py &
+$ sudo nohup python infnote_dns.py &
 
-nohup python run_crawler_regularly.py &
+$ nohup python run_crawler_regularly.py &
 
 
 RUNNING AS NON-ROOT
