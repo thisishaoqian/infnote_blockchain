@@ -2,13 +2,10 @@
 import asyncio
 import websockets
 import json
-import pandas as pd
 import logging
 import time
 import os
-import sys
-from pytz import utc
-from apscheduler.schedulers.blocking import BlockingScheduler
+
 
 logger = logging.getLogger('crawler')
 hdlr = logging.FileHandler('crawler.log')
@@ -38,8 +35,8 @@ full_node1_port = '32767'
 ips = {'47.74.45.239': False}
 ports = ['32767']
 f = open('infnote_db_new.csv', 'w')
-f.write('primarysever.infnote.com,'
-        'test.admin.infnote.com '
+f.write('primarysever.infnote.com,' +
+        'test.admin.infnote.com ' +
         '2016071114 28800 7200 604800 86400\n')
 nodes_file = open('nodes.csv', 'w')
 nodes_file.write('ip,good,last_check_time\n')

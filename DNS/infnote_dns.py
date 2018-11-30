@@ -2,7 +2,6 @@
 # coding: utf-8
 import configparser
 import os
-import re
 import socketserver
 import dnslib
 import gevent
@@ -11,8 +10,6 @@ from gevent.queue import Queue
 import pylru
 import logging
 import socket
-import time
-import hashlib
 monkey.patch_all()
 
 logger = logging.getLogger('infnote_dns')
