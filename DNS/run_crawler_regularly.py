@@ -13,4 +13,4 @@ def re_exe(cmd, inc=300):
         time.sleep(inc)
 
 
-re_exe('python crawler.py', 300)
+re_exe('python3 crawler.py', 300)
