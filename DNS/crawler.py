@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import asyncio
 import websockets
 import json
@@ -21,7 +20,7 @@ logger.addHandler(hdlr)
 logger.addHandler(ch)
 logger.setLevel(logging.DEBUG)
 
-message = {
+message_want_peers = {
    'identifier': '0',
    'type': 'question',
    'content': {
@@ -29,9 +28,24 @@ message = {
        'count': 10000
    }
 }
+
+message_info = {
+   'identifier': '0',
+   'type': 'question',
+   'content': {
+       'type': 'info',
+       'version': '0.1',
+       'peers': 0,
+       'chains': {},
+       'platform': 'Python 3.6',
+       'full_node': True
+   }
+}
+
 full_node1_ip = '47.74.45.239'
 full_node1_port = '32767'
 # True means was crawled
+# ['47.74.45.239', '47.74.47.117']
 ips = {'47.74.45.239': False}
 ports = ['32767']
 f = open('infnote_db_new.csv', 'w')
@@ -46,28 +60,16 @@ def get_ws_url(ip='47.74.45.239', port='32767'):
     return 'ws://' + ip + ':' + port
 
 
-async def request_peers(ip='47.74.45.239', port='32767'):
+async def request_info(ip='47.74.45.239', port='32767'):
     good = True
-    logger.info('try to connect ' + ip)
+    logger.info('request_info from ' + ip)
     try:
         async with websockets.connect(get_ws_url(ip, port)) as websocket:
-            await websocket.send(json.JSONEncoder().encode(message))
-            time_out_flag = False
-            try:
-                respose = await asyncio.wait_for(websocket.recv(), timeout=1)
-            except asyncio.TimeoutError:
-                time_out_flag = True
+            await websocket.send(json.JSONEncoder().encode(message_info))
+            resp_inf = await websocket.recv()
+            logger.info(resp_inf)
+            if(resp_inf is None):
                 good = False
-                logger.info(ip+' connect is timeout, is not good')
-            finally:
-                if(time_out_flag is False):
-                    j_respose = json.loads(respose)
-                    pears = j_respose['content']['peers']
-                    for pear in pears:
-                        if (pear['address'] not in ips.keys()):
-                            ips[pear['address']] = False
-                            ports.append(pear['port'])                   #
-                return
     except OSError as error:
         logger.info(ip+' is not good')
         good = False
@@ -76,7 +78,7 @@ async def request_peers(ip='47.74.45.239', port='32767'):
         ips[ip] = True
         if(good):
             logger.info(ip+' is good')
-            f.write('infnote.com,' + ip + '\n')
+            f.write('seed.infnote.com,' + ip + '\n')
             nodes_file.write(ip + ',yes,' +
                              time.strftime(
                                  "%Y-%m-%d %H:%M:%S",
@@ -91,6 +93,50 @@ async def request_peers(ip='47.74.45.239', port='32767'):
         return
 
 
+async def request_peers(ip='47.74.45.239', port='32767'):
+    good = True
+    logger.info('request_peers from ' + ip)
+    try:
+        async with websockets.connect(get_ws_url(ip, port)) as websocket:
+            await websocket.send(json.JSONEncoder().encode(message_want_peers))
+            time_out_flag = False
+            try:
+                respose = await asyncio.wait_for(websocket.recv(), timeout=1)
+            except asyncio.TimeoutError:
+                time_out_flag = True
+                good = False
+                logger.info(ip+' no response to request_peers')
+            finally:
+                if(time_out_flag is False):
+                    logger.info(respose)
+                    j_respose = json.loads(respose)
+                    pears = j_respose['content']['peers']
+                    for pear in pears:
+                        if (pear['address'] not in ips.keys()):
+                            ips[pear['address']] = False
+                            ports.append(pear['port'])                   #
+
+    except OSError as error:
+        logger.info(ip+' is not available')
+        good = False
+
+    finally:
+        # only write good peers
+        # because some peers may be available
+        # but no response to want_peers
+        # these peers will be checked by resquest_info
+        if(good):
+            ips[ip] = True
+            logger.info(ip+' is good')
+            f.write('seed.infnote.com,' + ip + '\n')
+            nodes_file.write(ip + ',yes,' +
+                             time.strftime(
+                                 "%Y-%m-%d %H:%M:%S",
+                                 time.localtime())
+                             + '\n')
+        return
+
+
 def main():
     global ips
     while False in list(ips.values()):
@@ -98,6 +144,10 @@ def main():
             if(ips[ip] is False):
                 asyncio.get_event_loop().run_until_complete(
                     request_peers(ip, '32767'))
+            # request_peers can update ips
+            if (ips[ip] is False):
+                asyncio.get_event_loop().run_until_complete(
+                    request_info(ip, '32767'))
                 ips[ip] = True
 
     logger.info('crawled ips ' + str(ips.keys()))
